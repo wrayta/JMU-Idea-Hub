@@ -34,4 +34,14 @@ you made changes to a file or added another file do the following:
 2. Next commit your changes. So type "git commit -m "<descriptive-message>"
 3. Next type "git push" (Use your username and password).
 
-No
+Now everytime you commit do the following steps before you push:
+
+1. Add files and commit.
+2. Type "git pull origin master" (Note if you receive any errors after doing
+   this like merging errors, please call or text Joe!"
+3. Then type "git push" to push your changes to remote repository. If you
+   receive any errors after doing this step, it is most likely because you
+   did not pull first. But if you are not sure call Joe.
+
+That is it. It should be pretty simple, but if you are the least unsure about
+anything do not hesitate to text/call Joe.
