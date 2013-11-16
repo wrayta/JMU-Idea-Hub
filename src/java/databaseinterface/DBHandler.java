@@ -26,11 +26,11 @@ public abstract class DBHandler {
     try {
       Context envCtx = (Context) (new InitialContext()) // what does this line do????????
           .lookup("java:comp/env");
-      driverName = (String) envCtx.lookup("DriverClassName");
+      driverName = "com.mysql.jdbc.Driver";
       Class.forName(driverName);
-      url = (String) envCtx.lookup("Url");
-      userId = (String) envCtx.lookup("UserId");
-      password = (String) envCtx.lookup("Password");
+      url = "jdbc:mysql://cs347.cs.jmu.edu/team03_db";
+      userId = "team03";
+      password = "d*e*lta*";
     } catch (NamingException e) {
       e.printStackTrace(); // should we do this????????
     } catch (ClassNotFoundException e) {
