@@ -8,6 +8,7 @@ package entities;
  */
 public abstract class User 
 {
+    public static int nextNumber;
     private int accountNumber;
     
     private String email;
@@ -18,7 +19,8 @@ public abstract class User
     
     public User()
     {
-        //accountNumber = WHAT?????
+        accountNumber = nextNumber;
+        nextNumber++;
         email = "";
         firstName = "";
         lastName = "";
@@ -36,14 +38,15 @@ public abstract class User
      * @param accountNumber 
      */
     public User( String first, String last, String email, String password,
-            String userName, int accountNumber )
+            String userName )
     {
         firstName = first;
         lastName = last;
         this.email = email;
         this.password = password;
         this.userName = userName;
-        this.accountNumber = accountNumber;
+        this.accountNumber = nextNumber;
+        nextNumber++;
     }
     /**
      * @return email

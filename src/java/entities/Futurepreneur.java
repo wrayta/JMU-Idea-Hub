@@ -6,7 +6,10 @@
 
 package entities;
 
-import java.util.Date;
+//import java.util.Date;
+
+import java.sql.Date;
+
 
 /**
  *
@@ -45,10 +48,10 @@ public class Futurepreneur extends User
      * @param gpa 
      */
     public Futurepreneur(String first, String last, String email, String password,
-            String userName, int accountNumber, String academic, Date gradDate,
+            String userName, String academic, Date gradDate,
             double gpa )
     {
-        super(first, last, email, password, userName, accountNumber );
+        super(first, last, email, password, userName );
         this.academic = academic;
         this.gradDate = gradDate;
         this.gpa = gpa;

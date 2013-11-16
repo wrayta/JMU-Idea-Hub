@@ -45,10 +45,10 @@ public class Investor extends User
      * @param website 
      */
     public Investor(String first, String last, String email, String password,
-            String userName, int accountNumber, String occupation, String interest,
+            String userName, String occupation, String interest,
             String website )
     {
-        super(first, last, email, password, userName, accountNumber);
+        super(first, last, email, password, userName);
         this.occupation = occupation;
         this.interest = interest;
         this.website = website;
