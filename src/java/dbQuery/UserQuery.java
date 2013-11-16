@@ -4,17 +4,14 @@
  * and open the template in the editor.
  */
 
-package entities;
+package dbQuery;
 
 /**
  *
  * @author root
  */
-public class Users 
-{
-    public static void main (String[] args)
-    {
-        System.out.println("Joe Otis");
-        System.out.println("DSFFD");
-    }
+public class UserQuery {
+    
+    
+    
 }
