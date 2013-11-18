@@ -20,9 +20,10 @@ and open the template in the editor.
               action=""> <!--needs to be completed!!!-->
                   
                 <fieldset>
-                               <div id="personalInfo">
+                                    <legend>Personal Information</legend>
+        
+                    <div id="personalInfo">
 
-                <legend>Personal Information</legend>
                    <table cellpadding="5">
                 
                 <tbody>
@@ -57,7 +58,16 @@ and open the template in the editor.
             </table> 
                 </div>
             </fieldset>
-                   
+            
+            <fieldset>
+
+            <legend>Personal Information</legend>
+
+            <div id="registerFuturepreneurBody">
+            <table cellpadding="5">
+            <tbody>
+            <tr>
+            <td>
             <p><label>Academic Standing:
                 <select name="gradesel">
                     <option>Freshman</option>
@@ -68,35 +78,50 @@ and open the template in the editor.
                     
                 </select>
                 </label></p>
-            
+            </td>
+            <td>
                 <p><label>Major(s):
-                        <input type="text" name="major"
-                               size="25" />
-                    </label></p>
-            
+                 <input type="text" name="major"
+                           size="25" />
+                </label></p>
+            </td>
+            </tr>
+            <tr>
+                <td>
                     <p><label>Minor(s):
                         <input type="text" name="minor"
                                size="25" />
                         </label></p>
-            
-                        <p><label>Expected Graduation Date:
+                </td>
+                <td>
+                        <p><label>Graduation Date:
                         <input type="text" name="graduationDate"
                                size="25" />
                             </label></p>
+                </td>
+            <tr>
+                <td>
                 <p><label>
                 Username:
-                <input type="text" name="futurepreneurUsername"/></label></p>
+                <input type="text" name="futurepreneurUsername" size="25"/></label></p>
                 </label>
-                <p><label>
-                Password (8-12 characters):
-                <input type="password" name="pwd1" maxlength="12" size="12" />
-                    </label><label>Reenter password: <input type="password" name="pwd1" maxlength="12" size="12" /></label></p>
-            
-                <p><input type="checkbox" id="agree" name="agree"/>
-            <label for="agree">
-                I agree to the rules of the EHSL.
-            </label></p>
-            
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p><label>
+                Password:
+                <input type="password" name="pwd1" maxlength="25" size="25" /></label>
+                </td>
+                <td>
+                    <label>Reenter password: <input type="password" name="pwd1" maxlength="25" size="25" /></label></p>
+                </td>
+            </tr>
+            </tbody>
+            </table> 
+
+            </div>
+            </fieldset>
             <p><div id="registerFuturepreneur">
              <input type="submit" value="Register"
                         name="register"/>

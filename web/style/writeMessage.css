@@ -62,8 +62,8 @@ a:hover {
 }
 
 #content {
-	/*float: left; 
-	width: 320px;*/
+	float: right;
+	width: 380px;
 	padding: 20px;
 }
 

@@ -62,21 +62,29 @@ a:hover {
 }
 
 #content {
-	/*float: left; 
-	width: 320px;*/
+        float: right;
+	width: 250px;
 	padding: 20px;
+	
 }
 
+#registerOption {
+        float: right;
+    	padding: 20px;
 
-#registerFuturepreneur {
-    text-align: center;    
-    clear:none;
 }
 
-#registerFuturepreneurBody {
-    text-align: right;
+#signInTable {
+        text-align: right;
 }
 
-#personalInfo {
-    text-align: right;
+#signInLeft {
+        float: left;
+	padding: 20px;
+	width: 200px;
+}
+
+#signInButton {
+        text-align: center;    
+        clear:none;
 }

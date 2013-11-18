@@ -19,9 +19,10 @@ and open the template in the editor.
         <form method="post"
               action=""> <!--needs to be completed!!!-->
             <fieldset>
+                                <legend>Personal Information</legend>
+
                                <div id="personalInfo">
 
-                <legend>Personal Information</legend>
                    <table cellpadding="5">
                 
                 <tbody>
@@ -58,8 +59,9 @@ and open the template in the editor.
             <p></p>
             <p></p>
 
-           
-                   
+           <fieldset>
+            <legend>Personal Information</legend>
+            <table cellpadding="5">
             <p>Degrees:
             <p>
             <textarea name="degrees" rows="3" cols="35">
@@ -92,13 +94,14 @@ and open the template in the editor.
             <label for="agree">
                 I agree to the rules of the EHSL.
             </label></p>
-            
-            <p><div id="registerInvestor"
-            ==== <input type="submit" value="Register"
+            </table>
+            </fieldset>
+            <p><div id="registerInvestor">
+             <input type="submit" value="Register"
                         name="register"/>
-            ==== <a href="../JSPs/homepage.jsp"><input type="button" value="Cancel" /></a>
+             <a href="../JSPs/homepage.jsp"><input type="button" value="Cancel" /></a>
             
-            ==== <input type="reset" value="Reset Form" /> ====
+             <input type="reset" value="Reset Form" /> 
             </div></p>
       
         </form>
