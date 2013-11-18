@@ -8,7 +8,7 @@ package entities;
  */
 public abstract class User 
 {
-    public static int nextNumber;
+    public static int nextNumber = 0;
     private int accountNumber;
     
     private String email;

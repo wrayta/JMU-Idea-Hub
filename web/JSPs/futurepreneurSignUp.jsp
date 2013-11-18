@@ -17,7 +17,7 @@ and open the template in the editor.
         <div id="content">
         <h2>Futurepreneur Registration</h2>
         <form method="post"
-              action=""> <!--needs to be completed!!!-->
+              action="../idea">
                   
                 <fieldset>
                                     <legend>Personal Information</legend>
