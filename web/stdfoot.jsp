@@ -8,7 +8,7 @@
 <html>
     <head>
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="../style/footer.css"/>
+        <link rel="stylesheet" type="text/css" href="style/footer.css"/>
 
     </head>
     <body>

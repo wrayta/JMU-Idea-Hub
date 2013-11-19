@@ -9,7 +9,7 @@
 <html>
     <head>
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="../style/contentNavMenu.css"/>
+        <link rel="stylesheet" type="text/css" href="style/contentNavMenu.css"/>
 
     </head>
     <body>

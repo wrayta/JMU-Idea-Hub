@@ -9,14 +9,13 @@
 <html>
     <head>
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="../style/writeMessageContentNavMenu.css"/>
+        <link rel="stylesheet" type="text/css" href="style/writeMessageContentNavMenu.css"/>
 
     </head>
     <body>
         <div id="contentNavigation">
                     <ul>
-                        <li><a href="http://www.free-css.com/">Inbox</a></li>
-                        <li><a href="writeMessage.jsp">Write Message</a></li>
+                        <li><a href="http://www.free-css.com/">Ideate</a></li>
                                                
                     </ul>
                 </div>

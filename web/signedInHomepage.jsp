@@ -7,16 +7,15 @@
 
     <head>
         <title>JMU Idea Hub</title>
-        <link rel="stylesheet" type="text/css" href="../style/homepage.css"/>
+        <link rel="stylesheet" type="text/css" href="style/homepage.css"/>
     </head>
     <body>
        
 <!--<!        <div id="container">-->
             <!--<p>container</p>-->
-            <jsp:include page="stdhead.jsp"/>
+            <jsp:include page="stdhead_signedIn.jsp"/>
            <div id="content-wrap"> 
             <div id="contentArea">
-                <jsp:include page="contentNavigationMenu.jsp"/>
                
                 <div id="content">
                     <h2>Welcome to My Website</h2>

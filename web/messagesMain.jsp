@@ -7,7 +7,7 @@
 
     <head>
         <title>JMU Idea Hub</title>
-        <link rel="stylesheet" type="text/css" href="../style/writeMessage.css"/>
+        <link rel="stylesheet" type="text/css" href="style/writeMessage.css"/>
     </head>
     <body>
        

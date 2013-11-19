@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <title>JMU Idea Hub</title>
-        <link rel="stylesheet" type="text/css" href="../style/registerInvestor.css"/>
+        <link rel="stylesheet" type="text/css" href="style/registerInvestor.css"/>
 
     </head>
     <body>
@@ -99,7 +99,7 @@ and open the template in the editor.
             <p><div id="registerInvestor">
              <input type="submit" value="Register"
                         name="register"/>
-             <a href="../JSPs/homepage.jsp"><input type="button" value="Cancel" /></a>
+             <a href="signIn.jsp"><input type="button" value="Cancel" /></a>
             
              <input type="reset" value="Reset Form" /> 
             </div></p>

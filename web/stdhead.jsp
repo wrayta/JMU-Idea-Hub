@@ -8,12 +8,12 @@
 <html>
     <head>
         <title>JMU Idea Hub</title>
-        <link rel="stylesheet" type="text/css" href="../style/header.css"/>
+        <link rel="stylesheet" type="text/css" href="style/header.css"/>
     </head>
     <body>
         <div id="banner">
             <h1>JMU Idea Hub</h1>
-            <img alt="JMU Logo"  height="112" width="200" align="right" src="../img/jmu_logo.jpg"/> 
+            <img alt="JMU Logo"  height="112" width="200" align="right" src="img/jmu_logo.jpg"/> 
         </div>
             
         <div id="siteNavigation">
@@ -23,7 +23,7 @@
                 <li><a href="http://www.free-css.com/" accesskey="1">Investor Listings</a></li>
                 <li><a href="http://www.free-css.com/" accesskey="1">Ideas</a></li>
                 <li><a href="http://www.free-css.com/" accesskey="1">Messages</a></li>
-                <li><a href="http://www.free-css.com/" accesskey="1">About Us</a></li>
+                <li><a href="aboutUs.jsp" accesskey="1">About Us</a></li>
             </ul>
         </div>
         <div class="headerPhoto"></div>
