@@ -18,7 +18,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="style/idea.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <% IdeaQuery query = new IdeaQuery();
+        <%  IdeaQuery query = new IdeaQuery();
             UserQuery usQuery = new UserQuery();
             SupportQuery supQuery = new SupportQuery();
 

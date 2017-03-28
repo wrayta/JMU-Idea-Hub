@@ -81,7 +81,7 @@ public class IdeaQuery {
      * @return
      */
     public ArrayList<Object> getIdeas() {
-        String query = "select * from ideas";
+        String query = "SELECT * FROM ideas ORDER BY ideaNumber DESC";
         ArrayList<Object> result = new ArrayList<Object>(); //Why is this OBJECT???????
 
         try {
