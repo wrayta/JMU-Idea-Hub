@@ -125,7 +125,8 @@
                     xmlhttp3.onreadystatechange = function()
                     {
                         if (xmlhttp3.readyState === 4 && xmlhttp3.status === 200)
-                        {                        
+                        {  
+//                            location.reload();
                         }
 
                     }
@@ -136,7 +137,8 @@
                             + "&ideaContent=" + document.getElementById("ideaTextAreaInput").value 
                             + "&updateIdeaNumber=" + <%= Integer.parseInt(request.getParameter("ideaNum"))%>
                             + "&supports=" + <%= idea.getSupports()%>
-                            + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>);     
+                            + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>);
+//                            + "&latestMonth=" + document.getElementById("latestMonth").innerHTML);     
                             
                     editButton = document.getElementById("editPostButton");
                     deleteButton = document.getElementById("deletePostButton");
@@ -209,6 +211,7 @@
                     inputText.setAttribute("readonly", "readonly");
                     inputTextArea.setAttribute("readonly", "readonly");
                     editButton.onclick = changeToEditButtons;
+                    deleteButton.onclick = deleteIdea;
                 };
 
 

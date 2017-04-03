@@ -76,6 +76,47 @@ public class IdeaQuery {
     }
 
     /**
+     * 
+     */
+    public ArrayList<Object> getIdeasForMonth(String month) {
+        
+        System.out.println("The month: " + month);
+        
+        String query = "SELECT * FROM ideas WHERE date LIKE '%" + month + "%' ORDER BY ideaNumber DESC";
+        ArrayList<Object> result = new ArrayList<Object>(); //Why is this OBJECT???????
+
+        try {
+
+            DBQueryHandler dbQue = new DBQueryHandler();
+            ResultSet rs = dbQue.doQuery(query);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int numOfCols = rsmd.getColumnCount();
+            result.add(new Integer(numOfCols));
+
+            while (rs.next()) {
+                int i = 1;
+                int accountNum = rs.getInt(i++);
+                String ideaName = rs.getString(i++);
+                int ideaNum = rs.getInt(i++);
+                int supps = rs.getInt(i++);
+                String date = rs.getString(i++);
+                String ideaTitle = rs.getString(i++);
+
+                Idea id = new Idea(accountNum, ideaName, ideaNum, supps, date, ideaTitle);
+
+                result.add(id);
+            }
+
+            dbQue.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return result;
+    }
+    /**
      * Gets all the ideas
      *
      * @return

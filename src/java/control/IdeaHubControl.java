@@ -12,7 +12,7 @@ import entities.Idea;
 import entities.Investor;
 import entities.Message;
 import entities.User;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -21,7 +21,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
+//import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -30,6 +32,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import dbQuery.IdeaQuery;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
 
 /**
  * Main servlet for the web application and handles most requests
@@ -80,6 +85,8 @@ public class IdeaHubControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        System.out.println("Inside doGet");
+        
         RequestDispatcher dispatcher;
 
         if (request.getParameter("ideaNum") != null) {
@@ -91,6 +98,9 @@ public class IdeaHubControl extends HttpServlet {
         } else if (request.getParameter("messageNum") != null) {
             dispatcher = getServletContext().getRequestDispatcher("/detMessage.jsp");
             dispatcher.forward(request, response);
+        } else if (request.getParameter("currentMonth") != null) {
+            System.out.println("Inside currentMonth param");
+            doGetIdeasForMonth(request, response);
         } else;
         // I dont know what
 
@@ -108,6 +118,8 @@ public class IdeaHubControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { // DO ERROR CHECKINGGGG!!!!!!!!
         // TO SELECT a major query for the majors and put in drop down
+        
+        System.out.println("Inside doPost");
         
         String url = null;
         try {
@@ -128,6 +140,7 @@ public class IdeaHubControl extends HttpServlet {
 //                System.out.println("Inside idea update!");
 //                doUpdateIdea(request, response);
             } else if (url.indexOf("idea") > 0) {
+                System.out.println("Inside indexOf(idea)");
                 
                 if (request.getParameter("updateIdeaNumber") != null) {
                     System.out.println("Inside update idea...");
@@ -442,7 +455,7 @@ public class IdeaHubControl extends HttpServlet {
      * @param response
      * @return
      */
-    private boolean doAddIdea(HttpServletRequest request, HttpServletResponse response) {
+    private boolean doAddIdea(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean added = true;
         HttpSession sesh = request.getSession(true);
 //        ErrorChecker err = new ErrorChecker();
@@ -459,16 +472,31 @@ public class IdeaHubControl extends HttpServlet {
 //        }
 
         if (added) {
+            System.out.println("Make it inside of added?");
+            
             idea = new Idea(((Integer) sesh.getAttribute("accountNumber")).intValue(),
                     request.getParameter("idea"), request.getParameter("title")
             );
             IdeaUpdate update = new IdeaUpdate();
             update.addIdea(idea);
-            try {
-                response.sendRedirect("./idea.jsp");
-            } catch (IOException ex) {
-                Logger.getLogger(IdeaHubControl.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+            IdeaQuery ideaQ = new IdeaQuery();
+       
+//        ArrayList<Object> ideaData = ideaQ.getIdeas();
+            ArrayList<Object> ideaData = ideaQ.getIdeasForMonth(request.getParameter("latestMonth"));
+
+        
+            sesh.setAttribute("ideaData", ideaData);
+            request.getRequestDispatcher("/idea.jsp").forward(request, response);
+
+//            try {
+//                response.sendRedirect("./idea.jsp");
+//            } catch (IOException ex) {
+//                Logger.getLogger(IdeaHubControl.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            
+            
+            
 //        } else {
 //            sesh.setAttribute("errMsg", msg);
 //            try {
@@ -488,7 +516,7 @@ public class IdeaHubControl extends HttpServlet {
      * @param response
      * @return 
      */
-    private boolean doUpdateIdea(HttpServletRequest request, HttpServletResponse response) {
+    private boolean doUpdateIdea(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean added = true;
 
         HttpSession sesh = request.getSession(true);
@@ -527,6 +555,12 @@ public class IdeaHubControl extends HttpServlet {
             
             IdeaUpdate update = new IdeaUpdate();
             update.updateIdea(idea);
+            
+            IdeaQuery ideaQ = new IdeaQuery();
+            ArrayList<Object> ideaData = ideaQ.getIdeasForMonth(request.getParameter("latestMonth"));
+            sesh.setAttribute("ideaData", ideaData);
+            request.getRequestDispatcher("/idea.jsp").forward(request, response);
+            
 //            try {
 //                response.sendRedirect("./idea.jsp");
 //            } catch (IOException ex) {
@@ -590,6 +624,38 @@ public class IdeaHubControl extends HttpServlet {
     }
 
     /**
+     * 
+     */
+    private void doGetIdeasForMonth(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Inside doGetIdeasForMonth");  
+        HttpSession sesh = request.getSession(true);
+
+        IdeaQuery ideaQ = new IdeaQuery();
+       
+//        ArrayList<Object> ideaData = ideaQ.getIdeas();
+        ArrayList<Object> ideaData = ideaQ.getIdeasForMonth(request.getParameter("currentMonth"));
+
+        
+        sesh.setAttribute("ideaData", ideaData); 
+        request.getRequestDispatcher("/idea.jsp").forward(request, response);
+
+    }
+    
+    /**
+     * 
+     * @param num
+     * @return 
+     */
+    String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
+    }
+    /**
      * Signs a user in
      *
      * @param request
@@ -598,10 +664,18 @@ public class IdeaHubControl extends HttpServlet {
     private void doSignIn(HttpServletRequest request, HttpServletResponse response) {
         HttpSession sesh = request.getSession(true);
         UserQuery query = new UserQuery();
+        IdeaQuery ideaQuery = new IdeaQuery();
+        Calendar now = Calendar.getInstance();
+        int month = (now.get(Calendar.MONTH));
 
         if (query.checkPass(request.getParameter("user").toLowerCase(), IdeaHubControl.hashPassword(request.getParameter("password")))) {
             sesh.setAttribute("loggedin", true);
             sesh.setAttribute("accountNumber", new Integer(query.getAccountNum(request.getParameter("user"))));
+            
+            String monthStr = getMonthForInt(month);
+            ArrayList<Object> ideaData = ideaQuery.getIdeasForMonth(monthStr);
+            System.out.println("ideaData in IdeaHubControl size: " + ideaData.size());
+            sesh.setAttribute("ideaData", ideaData);
             try {
                 response.sendRedirect("./idea.jsp");
             } catch (IOException ex) {
