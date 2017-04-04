@@ -103,7 +103,7 @@
                                         
                     var postData = "idea=" + encodeURIComponent(unescape(idea)) +
                     "&title=" + encodeURIComponent(unescape(title)) +
-                    "&latestMonth=" + latestMonth;
+                    "&latestMonth=" + encodeURIComponent(unescape(latestMonth));
                     
                     xmlhttp.open("POST", "idea", false);     
                     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

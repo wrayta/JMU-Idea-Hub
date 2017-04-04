@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : detIdea
     Author     : Thomas Wray Joe Otis
 --%>
@@ -10,6 +10,8 @@
 <%@page import="dbQuery.UserQuery"%>
 <%@page import="entities.Idea"%>
 <%@page import="dbQuery.IdeaQuery"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.DateFormatSymbols"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="comQ" class="dbQuery.CommentQuery" />
 <jsp:useBean id="suppQ" class="dbQuery.SupportQuery" />
@@ -24,7 +26,24 @@
 
             Idea idea = query.getIdea(Integer.parseInt(request.getParameter("ideaNum")));
             String name = usQuery.getUserFullName(idea.getAccountNumber());
+            
+            Calendar now = Calendar.getInstance();     
+            int month = (now.get(Calendar.MONTH) + 1); 
+            String latestMonthStr = getMonthForInt(month - 1);
         %>
+        
+        <%!
+            String getMonthForInt(int num) {
+                String month = "wrong";
+                DateFormatSymbols dfs = new DateFormatSymbols();
+                String[] months = dfs.getMonths();
+                if (num >= 0 && num <= 11 ) {
+                    month = months[num];
+                }
+                return month;
+            }
+        %>
+        
         <script>
             function loadXMLDoc()
             {
@@ -49,9 +68,6 @@
                             document.getElementById("supports").src = "img/thumbs-up-icon.png";
                         }
                         
-//                        document.getElementById("supports").disabled = true;
-//                        document.getElementById("supports").src = "img/thumbs-up-icon-liked.png";
-//                        document.getElementById("supports").value = xmlhttp.responseText;
                         document.getElementById("supportNumCounter").value = xmlhttp.responseText;
                         
                         if (xmlhttp.responseText > "0") {
@@ -90,9 +106,7 @@
                         else {
                             document.getElementById("supports" + counter).src = "img/thumbs-up-icon.png";
                         }
-//                        document.getElementById("supports" + counter).disabled = true;
-//                        document.getElementById("supports" + counter).src = "img/thumbs-up-icon-liked.png";
-//                        document.getElementById("supports" + counter).value = xmlhttp2.responseText;
+
                         document.getElementById("commentSupportNumCounter" + counter).value = xmlhttp2.responseText;
                         
                         if (xmlhttp2.responseText > "0") {
@@ -104,8 +118,8 @@
                         }
                     }
                 }
-                xmlhttp2.open("GET", "support?supportNumber=" + document.getElementById("numOfSup" + counter).value + "&accountNumber=" +
-            <%= request.getSession().getAttribute("accountNumber")%>, true);
+                xmlhttp2.open("GET", "support?supportNumber=" + document.getElementById("numOfSup" + counter).value 
+                        + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>, true);
                 xmlhttp2.send();
             }
             
@@ -126,19 +140,34 @@
                     {
                         if (xmlhttp3.readyState === 4 && xmlhttp3.status === 200)
                         {  
-//                            location.reload();
+                            location.reload();
                         }
 
                     }
 
+                    var ideaTitle = document.getElementById("ideaTextInput").value;
+                    
+                    var ideaContent = document.getElementById("ideaTextAreaInput").value;
+                                        
+                    var updateIdeaNumber = <%= Integer.parseInt(request.getParameter("ideaNum"))%>;
+                    
+                    var supports = <%= idea.getSupports()%>;
+                    
+                    var accountNum = <%= request.getSession().getAttribute("accountNumber")%>;
+                    
+                    var latestMonth = document.getElementById("detIdeaCurrentMonth").value;
+                    
+                    var postData = "ideaTitle=" + encodeURIComponent(unescape(ideaTitle))
+                        + "&ideaContent=" + encodeURIComponent(unescape(ideaContent))
+                        + "&updateIdeaNumber=" + encodeURIComponent(unescape(updateIdeaNumber))  
+                        + "&supports=" + encodeURIComponent(unescape(supports))  
+                        + "&accountNumber=" + encodeURIComponent(unescape(accountNum))  
+                        + "&latestMonth=" + encodeURIComponent(unescape(latestMonth));
+                   
                     xmlhttp3.open("POST", "idea", true);
                     xmlhttp3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xmlhttp3.send("ideaTitle=" + document.getElementById("ideaTextInput").value 
-                            + "&ideaContent=" + document.getElementById("ideaTextAreaInput").value 
-                            + "&updateIdeaNumber=" + <%= Integer.parseInt(request.getParameter("ideaNum"))%>
-                            + "&supports=" + <%= idea.getSupports()%>
-                            + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>);
-//                            + "&latestMonth=" + document.getElementById("latestMonth").innerHTML);     
+                    xmlhttp3.setRequestHeader("Content-length", postData.length);
+                    xmlhttp3.send(postData);     
                             
                     editButton = document.getElementById("editPostButton");
                     deleteButton = document.getElementById("deletePostButton");
@@ -151,8 +180,7 @@
                     inputTextArea.setAttribute("readonly", "readonly");
                     editButton.onclick = changeToEditButtons;
                 }
-                
-                
+           
             }
             
             function deleteIdea() {
@@ -173,7 +201,6 @@
                         if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
                         {
                               window.location.replace("./idea.jsp");
-    //                        document.getElementById("deletePostButton").onclick = "location.href='./idea.jsp';";
                         }
 
                     }
@@ -202,7 +229,6 @@
                 originalIdeaContent = inputTextArea.value;
 
                 editButton.innerHTML = "Cancel";
-//                editButton.type = "Reset";
                 editButton.onclick = function() {
                     inputText.value = originalIdeaTitle;
                     inputTextArea.value = originalIdeaContent;
@@ -216,7 +242,6 @@
 
 
                 deleteButton.innerHTML = "Update";
-//                deleteButton.type = "Submit";
                 deleteButton.onclick = updateIdea;
 
                 inputText.removeAttribute("readonly"); 
@@ -224,10 +249,6 @@
                     
         
             }
-            
-//            $('#supports').click(function() {
-//                $('#supportNumberLabel').html(function(i, val) { return val*1+1 });
-//            });
             
         </script>
     </head>
@@ -240,32 +261,54 @@
         %>
         <jsp:include page="nonstdhead.jsp"/>
 
-    <!--<center>-->
-
+        <input id="detIdeaCurrentMonth" type="hidden" name="detIdeaCurrentMonth" value="<%=latestMonthStr%>"> 
+        
+        <div id="oldPost">
+            <div id="postAuthor">
+                <label><%=name%></label> 
+            </div>
+            <div id="postDate">
+                <label><%=idea.getDate()%></label> 
+            </div>
+            <p>
+                <div id="postIdeaTitle"> 
+                    <input type="text"
+                           id="ideaTextInput"
+                           class="userInput"
+                           value="<%=idea.getIdeaTitle()%>" 
+                           readonly="readonly"/>
+                </div>
+            </p>
+            <p> 
+                <div id="postIdeaContent">
+                    <textarea id="ideaTextAreaInput" readonly="readonly"><%=idea.getIdea()%></textarea>
+                </div> 
+            </p>
+        
         <%
-            out.print("<div id=\"oldPost\">"
-                    + "<div id=\"postAuthor\">"
-                    + "<label>" + name + "</label>" 
-                    + "</div>"
-                    + "<div id=\"postDate\">"
-                    + "<label>" + idea.getDate() + "</label>" 
-                    + "</div>"
-                    + "<p>"
-                    + "<div id=\"postIdeaTitle\">" 
-                    + "<input type=\"text\""
-                    + "id=\"ideaTextInput\""
-                    + "class=\"userInput\""
-                    + "value=" + "\"" + idea.getIdeaTitle() + "\""
-                    + "readonly=\"readonly\"/>"
-                    + "</div>"
-                    + "</p>"
-                    + "<p>" 
-                    + "<div id=\"postIdeaContent\">"
-                    + "<textarea id=\"ideaTextAreaInput\" readonly=\"readonly\">"
-                    + idea.getIdea()
-                    + "</textarea>"
-                    + "</div>" 
-                    + "</p>");
+//            out.print("<div id=\"oldPost\">"
+//                    + "<div id=\"postAuthor\">"
+//                    + "<label>" + name + "</label>" 
+//                    + "</div>"
+//                    + "<div id=\"postDate\">"
+//                    + "<label>" + idea.getDate() + "</label>" 
+//                    + "</div>"
+//                    + "<p>"
+//                    + "<div id=\"postIdeaTitle\">" 
+//                    + "<input type=\"text\""
+//                    + "id=\"ideaTextInput\""
+//                    + "class=\"userInput\""
+//                    + "value=" + "\"" + idea.getIdeaTitle() + "\""
+//                    + "readonly=\"readonly\"/>"
+//                    + "</div>"
+//                    + "</p>"
+//                    + "<p>" 
+//                    + "<div id=\"postIdeaContent\">"
+//                    + "<textarea id=\"ideaTextAreaInput\" readonly=\"readonly\">"
+//                    + idea.getIdea()
+//                    + "</textarea>"
+//                    + "</div>" 
+//                    + "</p>");
 
             if (suppQ.notAlreadySupp((Integer) request.getSession().getAttribute("accountNumber"), idea.getSupports())) {
                 out.print("<div id=\"postSupports\">"
