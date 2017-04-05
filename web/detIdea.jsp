@@ -19,6 +19,8 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="style/idea.css"/>
+        <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Ranga" rel="stylesheet">
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <%  IdeaQuery query = new IdeaQuery();
             UserQuery usQuery = new UserQuery();
@@ -349,31 +351,35 @@
         
         </div>
         
-        <%
-            
-            int currentUserAccount = (Integer)(request.getSession().getAttribute("accountNumber"));
-            int postUserAccount = idea.getAccountNumber();
-            
-            if (currentUserAccount == postUserAccount) {
-                out.print("<div id=\"postOptions\">"
-                        + "<button type=\"button\""
-                        + "id=\"editPostButton\""
-                        + "onclick=\"changeToEditButtons()\""
-                        + "class=\"postEdit\">"
-                        + "Edit"
-                        + "</button>"
-                        + "<button type=\"button\""
-                        + "id=\"deletePostButton\""
-                        + "onclick=\"deleteIdea()\""
-                        + "class=\"postDelete\">"
-                        + "Delete"
-                        + "</button>"
-                        + "</div>"
-                );
-            }
+        <div id="postOptions">
+            <div id="lessIdea">
+                <a class="lessIdeaLink" href="idea.jsp">See Less...</a>
+            </div>
 
-        %>
+            <%
 
+                int currentUserAccount = (Integer)(request.getSession().getAttribute("accountNumber"));
+                int postUserAccount = idea.getAccountNumber();
+
+                if (currentUserAccount == postUserAccount) {
+                    out.print("<button type=\"button\""
+                            + "id=\"editPostButton\""
+                            + "onclick=\"changeToEditButtons()\""
+                            + "class=\"postEdit\">"
+                            + "Edit"
+                            + "</button>"
+                            + "<button type=\"button\""
+                            + "id=\"deletePostButton\""
+                            + "onclick=\"deleteIdea()\""
+                            + "class=\"postDelete\">"
+                            + "Delete"
+                            + "</button>");
+                }
+
+            %>
+
+        </div>
+        
         <div id="detIdeaCommentSection">
             <%
                 ArrayList<Object> comData = comQ.getComs(idea.getIdeaNumber());
