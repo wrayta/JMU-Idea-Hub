@@ -140,7 +140,9 @@
                     {
                         if (xmlhttp3.readyState === 4 && xmlhttp3.status === 200)
                         {  
-                            location.reload();
+//                            location.reload();
+                            $('#editedOldPost').load(document.URL +  ' #oldPost');
+
                         }
 
                     }
@@ -178,6 +180,7 @@
                     deleteButton.innerHTML = "Delete";
                     inputText.setAttribute("readonly", "readonly");
                     inputTextArea.setAttribute("readonly", "readonly");
+                    deleteButton.onclick = deleteIdea;
                     editButton.onclick = changeToEditButtons;
                 }
            
@@ -212,7 +215,8 @@
                             + "&ideaContent=" + document.getElementById("ideaTextAreaInput").value 
                             + "&deleteIdeaNumber=" + <%= Integer.parseInt(request.getParameter("ideaNum"))%>
                             + "&supports=" + <%= idea.getSupports()%>
-                            + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>);
+                            + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>
+                            + "&latestMonth=" + document.getElementById("detIdeaCurrentMonth").value);
                 }
                         
             }
@@ -263,52 +267,31 @@
 
         <input id="detIdeaCurrentMonth" type="hidden" name="detIdeaCurrentMonth" value="<%=latestMonthStr%>"> 
         
-        <div id="oldPost">
-            <div id="postAuthor">
-                <label><%=name%></label> 
-            </div>
-            <div id="postDate">
-                <label><%=idea.getDate()%></label> 
-            </div>
-            <p>
-                <div id="postIdeaTitle"> 
-                    <input type="text"
-                           id="ideaTextInput"
-                           class="userInput"
-                           value="<%=idea.getIdeaTitle()%>" 
-                           readonly="readonly"/>
+        <div id="editedOldPost">
+            
+            <div id="oldPost">
+                <div id="postAuthor">
+                    <label><%=name%></label> 
                 </div>
-            </p>
-            <p> 
-                <div id="postIdeaContent">
-                    <textarea id="ideaTextAreaInput" readonly="readonly"><%=idea.getIdea()%></textarea>
-                </div> 
-            </p>
+                <div id="postDate">
+                    <label><%=idea.getDate()%></label> 
+                </div>
+                <p>
+                    <div id="postIdeaTitle"> 
+                        <input type="text"
+                               id="ideaTextInput"
+                               class="userInput"
+                               value="<%=idea.getIdeaTitle()%>" 
+                               readonly="readonly"/>
+                    </div>
+                </p>
+                <p> 
+                    <div id="postIdeaContent">
+                        <textarea id="ideaTextAreaInput" readonly="readonly"><%=idea.getIdea()%></textarea>
+                    </div> 
+                </p>
         
         <%
-//            out.print("<div id=\"oldPost\">"
-//                    + "<div id=\"postAuthor\">"
-//                    + "<label>" + name + "</label>" 
-//                    + "</div>"
-//                    + "<div id=\"postDate\">"
-//                    + "<label>" + idea.getDate() + "</label>" 
-//                    + "</div>"
-//                    + "<p>"
-//                    + "<div id=\"postIdeaTitle\">" 
-//                    + "<input type=\"text\""
-//                    + "id=\"ideaTextInput\""
-//                    + "class=\"userInput\""
-//                    + "value=" + "\"" + idea.getIdeaTitle() + "\""
-//                    + "readonly=\"readonly\"/>"
-//                    + "</div>"
-//                    + "</p>"
-//                    + "<p>" 
-//                    + "<div id=\"postIdeaContent\">"
-//                    + "<textarea id=\"ideaTextAreaInput\" readonly=\"readonly\">"
-//                    + idea.getIdea()
-//                    + "</textarea>"
-//                    + "</div>" 
-//                    + "</p>");
 
             if (suppQ.notAlreadySupp((Integer) request.getSession().getAttribute("accountNumber"), idea.getSupports())) {
                 out.print("<div id=\"postSupports\">"
@@ -362,6 +345,11 @@
                         + "</div>"
                         + "</div>");
             }
+        %>
+        
+        </div>
+        
+        <%
             
             int currentUserAccount = (Integer)(request.getSession().getAttribute("accountNumber"));
             int postUserAccount = idea.getAccountNumber();
@@ -385,128 +373,101 @@
             }
 
         %>
-    <!--</center>-->
 
         <div id="detIdeaCommentSection">
-                    <%
-                        ArrayList<Object> comData = comQ.getComs(idea.getIdeaNumber());
-                        Iterator it = comData.iterator();
-                        int rows = ((Integer) it.next()).intValue(); // WHY IS THIS LIKE THISSSSSSSS
+            <%
+                ArrayList<Object> comData = comQ.getComs(idea.getIdeaNumber());
+                Iterator it = comData.iterator();
+                int rows = ((Integer) it.next()).intValue(); // WHY IS THIS LIKE THISSSSSSSS
 
-                        while (it.hasNext()) {
-                            Comment com = (Comment) it.next();
-                            int counter = com.getSupports();
-                            String comName = usQuery.getUserFullName(com.getAccountNumber());
-                            out.println("<div id=\"userComment\">"
-                                    + "<div id=\"commentAuthor\">"
-                                    + "<label>" + comName + "</label>"
-                                    + "</div>"
-                                    + "<div id=\"commentDate\">"
-                                    + "<label>" + com.getDate() + "</label>" 
-                                    + "</div>"
-                                    + "<p>"
-                                    + "<div id=\"commentContent\">"
-                                    + "<textarea readonly=\"readonly\">"
-                                    + com.getComment()
-                                    + "</textarea>"
-                                    + "</div>"
-                                    + "</p>");
+                while (it.hasNext()) {
+                    Comment com = (Comment) it.next();
+                    int counter = com.getSupports();
+                    String comName = usQuery.getUserFullName(com.getAccountNumber());
+                    out.println("<div id=\"userComment\">"
+                            + "<div id=\"commentAuthor\">"
+                            + "<label>" + comName + "</label>"
+                            + "</div>"
+                            + "<div id=\"commentDate\">"
+                            + "<label>" + com.getDate() + "</label>" 
+                            + "</div>"
+                            + "<p>"
+                            + "<div id=\"commentContent\">"
+                            + "<textarea readonly=\"readonly\">"
+                            + com.getComment()
+                            + "</textarea>"
+                            + "</div>"
+                            + "</p>");
 
-                            if (suppQ.notAlreadySupp((Integer) request.getSession().getAttribute("accountNumber"), com.getSupports())) {
-                                out.print("<div id=\"commentSupports\">"
-                                        + "<div id=\"commentSupportImageButton\">"
-                                        + "<input type=\"image\" src=\"img/thumbs-up-icon.png\""
-                                        + "onclick=\"loadXMLDoc2(" + counter + ")\""
-                                        + "id=\"supports" + counter + "\""
-                                        + "name=\"suppComments\""
-                                        + "/>"
-                                        + "<input type=\"hidden\""
-                                        + "id=\"numOfSup" + counter + "\""
-                                        + "value=\"" + com.getSupports() + "\"/>"
-                                        + "</div>");
+                    if (suppQ.notAlreadySupp((Integer) request.getSession().getAttribute("accountNumber"), com.getSupports())) {
+                        out.print("<div id=\"commentSupports\">"
+                                + "<div id=\"commentSupportImageButton\">"
+                                + "<input type=\"image\" src=\"img/thumbs-up-icon.png\""
+                                + "onclick=\"loadXMLDoc2(" + counter + ")\""
+                                + "id=\"supports" + counter + "\""
+                                + "name=\"suppComments\""
+                                + "/>"
+                                + "<input type=\"hidden\""
+                                + "id=\"numOfSup" + counter + "\""
+                                + "value=\"" + com.getSupports() + "\"/>"
+                                + "</div>");
 //                                        + "value=\"" + supQuery.getSupps(com.getSupports()) + "\"/>"
 //                                        + "<input type=\"hidden\""
 //                                        + "id=\"numOfSup" + counter + "\""
 //                                        + "value=\"" + com.getSupports() + "\"/>");
-                            } else {
-                                out.print("<div id=\"commentSupports\">"
-                                        + "<div id=\"commentSupportImageButtonLiked\">"
-                                        + "<input type=\"image\" src=\"img/thumbs-up-icon-liked.png\""
-                                        + "onclick=\"loadXMLDoc2(" + counter + ")\""
-                                        + "id=\"supports" + counter + "\""
-                                        + "name=\"suppComments\""
-                                        + "/>"
-                                        + "<input type=\"hidden\""
-                                        + "id=\"numOfSup" + counter + "\""
-                                        + "value=\"" + com.getSupports() + "\"/>"
+                    } else {
+                        out.print("<div id=\"commentSupports\">"
+                                + "<div id=\"commentSupportImageButtonLiked\">"
+                                + "<input type=\"image\" src=\"img/thumbs-up-icon-liked.png\""
+                                + "onclick=\"loadXMLDoc2(" + counter + ")\""
+                                + "id=\"supports" + counter + "\""
+                                + "name=\"suppComments\""
+                                + "/>"
+                                + "<input type=\"hidden\""
+                                + "id=\"numOfSup" + counter + "\""
+                                + "value=\"" + com.getSupports() + "\"/>"
 //                                        + "\" disabled=\"disabled\"/>"
-                                        + "</div>");                       
-                                  
-//                                        "<input type=\"button\""
-//                                        + "id=\"supports\""
-//                                        + "name=\"suppComments\""
-//                                        + "value=\""
-//                                        + supQuery.getSupps(com.getSupports())
-//                                        + "\" disabled=\"disabled\"/>");
-                            }
-                            //counter++;
-                            
-                            int numComSupports = supQuery.getSupps(com.getSupports());
-                            
-                            if(numComSupports > 0) {
-                                out.print("<div id=\"commentSupportNumberLabel\">"
-                                    + "<label>"
-                                    + "<input type=\"text\""
-                                    + "id=\"commentSupportNumCounter" + counter +"\""
-                                    + "class=\"commentSupportNumClass\""
-                                    + "name=\"commentSupportNumCounter\""
-                                    + "value=\""
-                                    + supQuery.getSupps(com.getSupports()) 
-                                    + "\" readonly=\"readonly\"/>"
-                                    + "</label>"
-                                    + "</div>"
-                                    + "</div>"
-                                    + "</div>");
-                            }
-                            
-                            else {
-                                out.print("<div id=\"commentSupportNumberLabel\">"
-                                    + "<label>"
-                                    + "<input type=\"text\""
-                                    + "id=\"commentSupportNumCounter" + counter +"\""
-                                    + "class=\"commentSupportNumClass\""
-                                    + "name=\"commentSupportNumCounter\"" 
-                                    + "readonly=\"readonly\"/>"
-                                    + "</label>"
-                                    + "</div>"
-                                    + "</div>"
-                                    + "</div>");
-                            }
-                            
-//                            out.print("<div id=\"commentSupportNumberLabel\">"
-//                                    + "<label>"
-//                                    + "<input type=\"text\""
-//                                    + "id=\"commentSupportNumCounter" + counter +"\""
-//                                    + "class=\"commentSupportNumClass\""
-//                                    + "name=\"commentSupportNumCounter\""
-//                                    + "value=\""
-//                                    + supQuery.getSupps(com.getSupports()) 
-//                                    + "\" readonly=\"readonly\"/>"
-//                                    + "</label>"
-//                                    + "</div>"
-//                                    + "</div>"
-//                                    + "</div>");
-                            
-                        }
-                    %>
-            
-            <!--<h2>Comment Section</h2>-->
+                                + "</div>");                       
+
+                    }
+
+                    int numComSupports = supQuery.getSupps(com.getSupports());
+
+                    if(numComSupports > 0) {
+                        out.print("<div id=\"commentSupportNumberLabel\">"
+                            + "<label>"
+                            + "<input type=\"text\""
+                            + "id=\"commentSupportNumCounter" + counter +"\""
+                            + "class=\"commentSupportNumClass\""
+                            + "name=\"commentSupportNumCounter\""
+                            + "value=\""
+                            + supQuery.getSupps(com.getSupports()) 
+                            + "\" readonly=\"readonly\"/>"
+                            + "</label>"
+                            + "</div>"
+                            + "</div>"
+                            + "</div>");
+                    }
+
+                    else {
+                        out.print("<div id=\"commentSupportNumberLabel\">"
+                            + "<label>"
+                            + "<input type=\"text\""
+                            + "id=\"commentSupportNumCounter" + counter +"\""
+                            + "class=\"commentSupportNumClass\""
+                            + "name=\"commentSupportNumCounter\"" 
+                            + "readonly=\"readonly\"/>"
+                            + "</label>"
+                            + "</div>"
+                            + "</div>"
+                            + "</div>");
+                    }                            
+                }
+            %>
 
             <form action="comment" method="post">
                 <div id="newCommentContainer">
-                    <!--<p>-->
-                        <textarea name="comment" id="commentTextArea" placeholder="Add a comment..."></textarea>
-<!--                    </p>-->
+                    <textarea name="comment" id="commentTextArea" placeholder="Add a comment..."></textarea>
                     <p>
                         <input type="hidden" name="number" value="<%= idea.getIdeaNumber()%>"/>
                     </p>
@@ -515,8 +476,7 @@
                         <input type="submit" class="commentSubmit" value="Comment"/>
                     </p>
                 </div>
-            </form>
-                
+            </form>          
         </div>
 </body>
 </html>

@@ -576,7 +576,7 @@ public class IdeaHubControl extends HttpServlet {
      * @param request
      * @param response 
      */
-    private boolean doDeleteIdea(HttpServletRequest request, HttpServletResponse response) {
+    private boolean doDeleteIdea(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean added = true;
         HttpSession sesh = request.getSession(true);
         Idea idea;
@@ -610,6 +610,10 @@ public class IdeaHubControl extends HttpServlet {
             IdeaUpdate update = new IdeaUpdate();
             update.deleteIdea(idea);
             
+            IdeaQuery ideaQ = new IdeaQuery();
+            ArrayList<Object> ideaData = ideaQ.getIdeasForMonth(request.getParameter("latestMonth"));
+            sesh.setAttribute("ideaData", ideaData);
+            request.getRequestDispatcher("/idea.jsp").forward(request, response);
 //            try {
 //                System.out.println("Trying to send redirect");
 //                
