@@ -471,9 +471,13 @@
                 }
             %>
 
-            <form action="comment" method="post">
+            <form action="comment" onsubmit="disableBeforeUnload();" method="post">
                 <div id="newCommentContainer">
-                    <textarea name="comment" id="commentTextArea" placeholder="Add a comment..."></textarea>
+                    <textarea name="comment" 
+                              id="commentTextArea" 
+                              onchange="enableBeforeUnload();"
+                              onkeyup="enableBeforeUnload();"
+                              placeholder="Add a comment..."></textarea>
                     <p>
                         <input type="hidden" name="number" value="<%= idea.getIdeaNumber()%>"/>
                     </p>
@@ -484,5 +488,25 @@
                 </div>
             </form>          
         </div>
+                    
+        <script>
+            $(document).ready(function() {
+
+                $('.lessIdeaLink').click(function() {
+                    return confirm('Return to ideas?');
+                });
+    
+            });
+            
+            function enableBeforeUnload() {
+                window.onbeforeunload = function(e) {
+                    return "Discard changes?";
+                };
+            }
+            
+            function disableBeforeUnload() {
+                window.onbeforeunload = null;
+            }
+        </script>
 </body>
 </html>

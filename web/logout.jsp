@@ -12,6 +12,7 @@
     </head>
     <%
         request.getSession().setAttribute("loggedin", false);
+        request.getSession().setAttribute("notLoggedin", null);
     %>
     <jsp:include page="nonstdhead.jsp"/>
     <body>

@@ -129,6 +129,16 @@ input:focus {
     height: 52px;
 }
 
+#failedLoginMessage {
+    display: inline-block;
+    font-family: sans-serif;
+    color: red;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 10px 0 0 0;
+}
+
 a.forgot-link {
     font-size: 20px;
     font-family: 'Ranga', cursive;

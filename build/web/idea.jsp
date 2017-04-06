@@ -4,10 +4,6 @@
 --%>
 <%@page import="entities.Investor"%>
 <%@page import="entities.User"%>
-<%--<%@page import="dbQuery.UserQuery"%>--%>
-<%--<%@page import="entities.Idea"%>--%>
-<%--<%@page import="java.util.Iterator"%>--%>
-<%--<%@page import="java.util.ArrayList"%>--%>
 
 <?xml version="1.0" encoding="utf-8"?>
 
@@ -31,42 +27,6 @@
             %>
 
             <script>
-//                function requestIdeasForMonth(monthNum)
-//                {
-//                    console.log("Inside requestIdeasForMonth");
-//                    
-//                    var month;
-//                    
-//                    if (monthNum === -1) {
-//                        month = document.getElementById("latestMonth").innerHTML;
-//                    }
-//                    
-//                    else {
-//                        month = document.getElementById("month" + monthNum).innerHTML;
-//                    }
-//                   
-//                    console.log("The month is: " + month);
-//                    
-//                    var xmlhttp;
-//                    if (window.XMLHttpRequest)
-//                    {// code for IE7+, Firefox, Chrome, Opera, Safari
-//                        xmlhttp = new XMLHttpRequest();
-//                    }
-//                    else
-//                    {// code for IE6, IE5
-//                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-//                    }
-//                    xmlhttp.onreadystatechange = function()
-//                    {
-//                        if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
-//                        {
-//                            location.reload();
-//                        }
-//                    }
-//
-//                    xmlhttp.open("GET", "idea?currentMonth=" + month, true);
-//                    xmlhttp.send();
-//                }
                 
                 function createNewIdea() {
                     console.log("Inside createNewIdea");
@@ -117,7 +77,6 @@
 
         <jsp:include page="nonstdhead.jsp"/>
 
-        <!--<form action="idea" onsubmit="disableBeforeUnload();" accept-charset="utf-8" method="post">-->
         <form id="newIdeaForm" accept-charset="utf-8">
 
             <div id="newIdeaContainer">
@@ -152,87 +111,10 @@
         <jsp:include page="postArchivesSideNav.jsp"/>
  
         <jsp:include page="listOfIdeas.jsp"/>
-        
-        <%
-//            ArrayList<Object> ideaData = (ArrayList<Object>) (request.getSession().getAttribute("ideaData"));
-//            System.out.println("ideaData size: " + ideaData.size());
-//            Iterator it = ideaData.iterator();
-//            int rows = ((Integer) it.next()).intValue(); // WHY IS THIS LIKE THISSSSSSSS
-//            int counter = 1;
-//            UserQuery usQuery = new UserQuery();
-//
-//            out.println("<div id=\"ideasList\">");
-//
-//            while (it.hasNext()) {
-//                Idea idea = (Idea) it.next();
-//                String name = usQuery.getUserFullName(idea.getAccountNumber());
-//                out.println(
-//                    "<button class=\"accordion\""
-//                    + ">"
-//                    + "<div id=\"listIdeaTitle\">"
-//                    + idea.getIdeaTitle()
-//                    + "</div>"
-//                    + "<div id=\"listIdeaAuthor\">"
-//                    + name
-//                    + "</div>"
-//                    + "<div id=\"listIdeaDate\">"
-//                    + idea.getDate()
-//                    + "</div>"
-//                    + "</button>"
-//                    + "<div class=\"panel\">"
-//                    + "<p>"
-//                    + "<div id=\"listIdeaContent\">"
-//                    + idea.getIdea()
-//                    + "</div>"
-//                    + "<div id=\"moreIdea\">"
-//                    + "<a class=\"moreIdeaLink\" href=\"idea?ideaNum="
-//                    + idea.getIdeaNumber() + "\">"
-//                    + "See More..."
-//                    + "</a>"
-//                    + "</div>"
-//                    + "</p>"
-//                    + "</div>");
-//
-//                counter++;
-//            }
-//
-//            out.println("</div>");
-        %>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
         <script>
-//            var acc = document.getElementsByClassName("accordion");
-//            var i;
-//
-//            if (acc.length > 0) {
-//                acc[0].classList.toggle("active");
-//                var firstPanel = acc[0].nextElementSibling;
-//                firstPanel.style.maxHeight = firstPanel.scrollHeight + "px";
-//
-//                for (i = 0; i < acc.length; i++) {
-//                    acc[i].onclick = function() {
-//                        this.classList.toggle("active");
-//                        var panel = this.nextElementSibling;
-//                        if (panel.style.maxHeight) {
-//                            panel.style.maxHeight = null;
-//                        } else {
-//                            panel.style.maxHeight = panel.scrollHeight + "px";
-//                        }
-//                    }
-//                }
-//            }
-
-//            var months = document.getElementsByClassName("month");
-//            var topNum = 25;
-//            var j;
-//
-//            for (j = 0; j < months.length; j++) {
-//
-//                months[j].style.top = topNum + "px";
-//                topNum += 60;
-//            }
-
             $(document).ready(function() {
 
                 $('form input[type=submit]').click(function() {
@@ -246,11 +128,6 @@
                 $('form input[type=reset]').click(function() {
                     return confirm('Discard idea?');
                 });
-
-//                $('.month').click(function() {
-//                    console.log("month click");
-//                    printIdeasForMonth();
-//                });
     
             });
             
@@ -259,6 +136,7 @@
                     return "Discard changes?";
                 };
             }
+            
             function disableBeforeUnload() {
                 window.onbeforeunload = null;
             }

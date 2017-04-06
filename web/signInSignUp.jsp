@@ -60,6 +60,23 @@
 
                 </fieldset>
                 
+                <%
+                    HttpSession sesh = request.getSession(true);
+
+                    if(sesh.getAttribute("notLoggedin") != null && (Boolean)(sesh.getAttribute("notLoggedin")) == true) {
+                        System.out.println("Inside the false login if");
+                %>
+            
+                    <p>
+                        <div id="failedLoginMessage">
+                            User Name or Password is incorrect
+                        </div> 
+                    </p>
+            
+                <%
+                    }
+                %>
+            
             </form>
             
         </div>

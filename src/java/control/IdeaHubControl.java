@@ -678,7 +678,7 @@ public class IdeaHubControl extends HttpServlet {
             
             String monthStr = getMonthForInt(month);
             ArrayList<Object> ideaData = ideaQuery.getIdeasForMonth(monthStr);
-            System.out.println("ideaData in IdeaHubControl size: " + ideaData.size());
+//            System.out.println("ideaData in IdeaHubControl size: " + ideaData.size());
             sesh.setAttribute("ideaData", ideaData);
             try {
                 response.sendRedirect("./idea.jsp");
@@ -687,6 +687,7 @@ public class IdeaHubControl extends HttpServlet {
             }
         } else {
             sesh.setAttribute("loggedin", false);
+            sesh.setAttribute("notLoggedin", true);
             try {
                 response.sendRedirect("./signInSignUp.jsp");
             } catch (IOException ex) {
