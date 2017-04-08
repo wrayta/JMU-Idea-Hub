@@ -86,7 +86,8 @@
                                 + "<img id=\"profileDropDown\" src=\"img/signIn.bmp\">"
                                 + "<div class=\"dropdown-content\">"
                                 + editInfo
-                                + "<div id=\"logout\"><a href=\"logout.jsp\">Log Out</a>"
+                                + "<div id=\"logout\">"
+                                + "<a href=\"signInSignUp.jsp\">Log Out</a>"
                                 + "</div>"   
                                 + "</div>"
                                 + "</div>"

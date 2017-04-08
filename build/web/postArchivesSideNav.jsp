@@ -28,10 +28,10 @@
         <%                
                 Calendar now = Calendar.getInstance();
                 
-                int month = (now.get(Calendar.MONTH) + 1);
+                int month = (now.get(Calendar.MONTH));
                 
-                for (int i = 0; i < month; i++) {
-                    if(i == month - 1) {
+                for (int i = month; i >= 0; i--) {
+                    if(i == month) {
                         String latestMonthStr = getMonthForInt(i);
                         out.print("<a href=\"#\""
                                 + "onclick=\"requestIdeasForMonth(" + -1 + ")\"" 

@@ -44,14 +44,14 @@ and open the template in the editor.
     background: #9370DB;
 }
 
-input::-webkit-input-placeholder  {
+/*input::-webkit-input-placeholder  {
     color: #a1b2c3; 
     text-shadow: 0px -1px 0px #38506b;  
-}
-input:-moz-placeholder {
+}*/
+/*input:-moz-placeholder {
     color: #a1b2c3; 
     text-shadow: 0px -1px 0px #38506b; 
-}
+}*/
 
 .userInput {
     border-radius: 5px 5px 5px 5px;
@@ -70,7 +70,7 @@ textarea {
     resize: none;
 }
 
-textarea::-webkit-input-placeholder  {
+/*textarea::-webkit-input-placeholder  {
     color: #a1b2c3; 
     text-shadow: 0px -1px 0px #38506b;  
 }
@@ -78,7 +78,7 @@ textarea::-webkit-input-placeholder  {
 textarea:-moz-placeholder {
     color: #a1b2c3; 
     text-shadow: 0px -1px 0px #38506b; 
-}
+}*/
 
 /*#newIdeaContainer {
     margin: 120px 0 0 0;
@@ -249,6 +249,16 @@ a.moreIdeaLink:hover {
     transform: translateX(-50%);
 }
 
+#typeOfAccountPic {
+    margin: 10px 0px 0px 30px;
+}
+
+#detPostHeaderBar {
+    margin: 0px 0px 0px 10px;
+    display: inline-block;
+    float: right;
+}
+
 #postIdeaTitle {
     display: inline-block;
     margin: 0px 0px 0px 30px;
@@ -263,10 +273,10 @@ a.moreIdeaLink:hover {
 
 #postAuthor {
     display: inline-block;
-    margin: 10px 0px 10px 30px;
+    margin: 10px 110px 0px 0px;
     font-family: sans-serif;
-    font-size: 16px; 
-    color: #445668;
+    font-size: 16px;
+    color: rgb(68, 86, 104);
 }
 
 #postDate {
@@ -274,8 +284,8 @@ a.moreIdeaLink:hover {
     margin: 10px 30px;
     float: right;
     font-family: sans-serif;
-    font-size: 16px; 
-    color: #445668;
+    font-size: 16px;
+    color: rgb(68, 86, 104);
 }
 
 #postSupports {
@@ -355,11 +365,17 @@ a.lessIdeaLink:hover {
     transform: translateX(-50%);
 }
 
+#detCommentHeaderBar {
+    margin: 0px 0px 0px 10px;
+    display: inline-block;
+    float: right;
+}
+
 #commentAuthor {
     display: inline-block;
-    margin: 10px 0px 10px 30px;
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-size: 16px; 
+    margin: 10px 172px 0px 0px;
+    font-family: sans-serif;
+    font-size: 16px;
     color: #445668;
 }
 
@@ -379,7 +395,7 @@ a.lessIdeaLink:hover {
     display: inline-block;
     float: right;
     margin: 0px 5px 8px 0px;
-    font-family: 'PT Sans Narrow', sans-serif;
+    font-family: sans-serif;
     font-size: 16px; 
     color: #445668;
 }
@@ -422,7 +438,7 @@ a.lessIdeaLink:hover {
     display: inline-block;
     margin: 10px 30px;
     float: right;
-    font-family: 'PT Sans Narrow', sans-serif;
+    font-family: sans-serif;
     font-size: 16px; 
     color: #445668;
 }

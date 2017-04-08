@@ -20,6 +20,15 @@
     <head>
         <link href="style/signInNice.css" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Ranga" rel="stylesheet">
+        
+        <%
+            if(session.getAttribute("loggedin") != null && 
+                    (Boolean)(session.getAttribute("loggedin")) == true) {
+                request.getSession().setAttribute("loggedin", false);
+                request.getSession().setAttribute("notLoggedin", null);
+            }
+            
+        %>
     </head>
 
     <body>

@@ -29,45 +29,45 @@
             <script>
                 
                 function createNewIdea() {
-                    console.log("Inside createNewIdea");
                     
-                    disableBeforeUnload();
                     
-                    console.log("After disableBeforeUnload");
                     
-                    var latestMonth = document.getElementById("latestMonth").innerHTML;
-                    
-                    var xmlhttp;
-                    
-                    if (window.XMLHttpRequest)
-                    {// code for IE7+, Firefox, Chrome, Opera, Safari
-                        xmlhttp = new XMLHttpRequest();
-                    }
-                    else
-                    {// code for IE6, IE5
-                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-                    xmlhttp.onreadystatechange = function()
-                    {
-                        if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
-                        {
-//                            location.reload();
-                            $('#ideasList').load(document.URL +  ' #ideasList');
-                        }
-                    }
+//                        disableBeforeUnload();
 
-                    var idea = document.getElementById("ideaId").value;
+                        var latestMonth = document.getElementById("latestMonth").innerHTML;
+
+                        var xmlhttp;
+
+                        if (window.XMLHttpRequest)
+                        {// code for IE7+, Firefox, Chrome, Opera, Safari
+                            xmlhttp = new XMLHttpRequest();
+                        }
+                        else
+                        {// code for IE6, IE5
+                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        xmlhttp.onreadystatechange = function()
+                        {
+                            if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+                            {
+    //                            location.reload();
+                                $('#ideasList').load(document.URL +  ' #ideasList');
+                            }
+                        }
+
+                        var idea = document.getElementById("ideaId").value;
+
+                        var title = document.getElementById("titleId").value;
+
+                        var postData = "idea=" + encodeURIComponent(unescape(idea)) +
+                        "&title=" + encodeURIComponent(unescape(title)) +
+                        "&latestMonth=" + encodeURIComponent(unescape(latestMonth));
+
+                        xmlhttp.open("POST", "idea", false);     
+                        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xmlhttp.setRequestHeader("Content-length", postData.length);
+                        xmlhttp.send(postData);
                     
-                    var title = document.getElementById("titleId").value;
-                                        
-                    var postData = "idea=" + encodeURIComponent(unescape(idea)) +
-                    "&title=" + encodeURIComponent(unescape(title)) +
-                    "&latestMonth=" + encodeURIComponent(unescape(latestMonth));
-                    
-                    xmlhttp.open("POST", "idea", false);     
-                    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    xmlhttp.setRequestHeader("Content-length", postData.length);
-                    xmlhttp.send(postData);
                             
                 }
             </script>
@@ -119,8 +119,17 @@
 
                 $('form input[type=submit]').click(function() {
                     if(confirm('Submit idea?')) {
+//                        disableBeforeUnload();
+
                         disableBeforeUnload();
-                        createNewIdea();
+
+                        if (!checkIfBlank()) {
+                            createNewIdea();
+                        }
+                        
+                        else {
+                            alert("Neither title nor idea can be blank");
+                        }
                     }
                         
                 });
@@ -130,6 +139,15 @@
                 });
     
             });
+            
+            function checkIfBlank() {
+                if(document.getElementById("titleId").value.toString().trim() === ""
+                        || document.getElementById("ideaId").value.toString().trim() === "") {
+                    return true;
+                }
+                
+                return false;
+            }
             
             function enableBeforeUnload() {
                 window.onbeforeunload = function(e) {

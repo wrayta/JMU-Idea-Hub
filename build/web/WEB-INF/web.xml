@@ -4,22 +4,6 @@
         <!--<welcome-file>homepage.jsp</welcome-file> UNCOMMENT THIS!!!-->
         <welcome-file>signInSignUp.jsp</welcome-file>
     </welcome-file-list>
-<!--    <filter>
-        <filter-name>CorsFilter</filter-name>
-        <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
-        <init-param>
-            <param-name>cors.allowed.origins</param-name>
-            <param-value>*</param-value>
-        </init-param>
-        <init-param>
-            <param-name>cors.allowed.methods</param-name>
-            <param-value>GET,POST,HEAD,OPTIONS,PUT,DELETE</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>CorsFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
     <servlet>
         <servlet-name>IdeaHubControl</servlet-name>
         <servlet-class>control.IdeaHubControl</servlet-class>
@@ -32,10 +16,10 @@
         <servlet-name>SupportControl</servlet-name>
         <servlet-class>control.SupportControl</servlet-class>
     </servlet>
-<!--    <servlet-mapping>
-        <servlet-name>IdeaHubControl</servlet-name>
-        <url-pattern>/updateIdea</url-pattern>
-    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>UsernameControl</servlet-name>
+        <servlet-class>control.UsernameControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IdeaHubControl</servlet-name>
         <url-pattern>/idea</url-pattern>
@@ -47,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>SupportControl</servlet-name>
         <url-pattern>/support</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsernameControl</servlet-name>
+        <url-pattern>/username</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

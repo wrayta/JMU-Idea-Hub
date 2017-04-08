@@ -25,13 +25,44 @@ and open the template in the editor.
         <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Ranga" rel="stylesheet">
         <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="style/formValidation.css"/>
+        
+        <script>
+            function checkExist(){
+                var xmlhttp = new XMLHttpRequest();
+                var username = encodeURIComponent(document.forms["regInvestor"]["investorUsernameInputId"].value);
+                var url = "username?username=" + username;
+
+                xmlhttp.onreadystatechange = function(){
+                    if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        if(xmlhttp.responseText == "User already exists"
+                            || xmlhttp.responseText == "User name is invalid") {
+                            document.getElementById("investorExist").style.color = "red";
+                            document.getElementById("investorUsernameInputId").className = "error";
+                        }
+                        else {
+                            document.getElementById("investorExist").style.color = "green";
+                        }
+                        document.getElementById("investorExist").innerHTML = xmlhttp.responseText;
+                        
+                    }
+
+                };
+
+                try{
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+                }catch(e) {
+                    alert("unable to connect to server");
+                }
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="nonstdhead.jsp"/>
 
         <div id="investorFormWrapper">
 
-            <form method="post" action="idea" onsubmit="disableBeforeUnload();" id="investor-registration-form"> 
+            <form method="post" name="regInvestor" action="idea" onsubmit="disableBeforeUnload();" id="investor-registration-form"> 
 
                 <fieldset>
 
@@ -110,8 +141,11 @@ and open the template in the editor.
                                    data-validation-length="3-12" 
                                    data-validation-error-msg="User name has to be an alphanumeric value (3-12 chars)"
                                    name="investorUsername" 
+                                   id="investorUsernameInputId"
+                                   onblur="checkExist();"
                                    onchange="enableBeforeUnload();"
                                    onkeyup="enableBeforeUnload();"/>
+                                   <span id="investorExist"></span>
                         </div>
                     </p>
 

@@ -201,6 +201,15 @@ public class ErrorChecker {
         return isTrue;
     }
 
+    public boolean validateUsername(String word) {
+        
+        System.out.println("The value of the word is: " + word);
+        
+        String regEx = "^[\\pL\\pN]+$";
+        
+        return ( Pattern.matches(regEx, word) && (word.length() >= 3) && (word.length() <= 12) );
+
+    }
     /**
      * Makes sure the password is at least 8 chars and under the max amount
      *

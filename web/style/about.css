@@ -53,15 +53,15 @@ body {
     width: 1400px;
     
     font-family: 'PT Sans Narrow', sans-serif;
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
+/*    -webkit-column-count: 2;  Chrome, Safari, Opera 
+    -moz-column-count: 2;  Firefox */
     column-count: 2;
     
-    -webkit-column-rule: 1px solid #9370DB; /* Chrome, Safari, Opera */
-    -moz-column-rule: 1px solid #9370DB; /* Firefox */
+/*    -webkit-column-rule: 1px solid #9370DB;  Chrome, Safari, Opera 
+    -moz-column-rule: 1px solid #9370DB;  Firefox */
     column-rule: 1px solid #9370DB;
     
-    -webkit-column-width: 120px; /* Chrome, Safari, Opera */
-    -moz-column-width: 120px; /* Firefox */
+/*    -webkit-column-width: 120px;  Chrome, Safari, Opera 
+    -moz-column-width: 120px;  Firefox */
     column-width: 120px;
 }

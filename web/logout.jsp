@@ -8,14 +8,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <!--<title>JSP Page</title>-->
+        <%
+            request.getSession().setAttribute("loggedin", false);
+            request.getSession().setAttribute("notLoggedin", null);
+            
+        %>
+        
+        <script>
+            window.location.replace("./signInSignUp.jsp");
+        </script>
     </head>
-    <%
-        request.getSession().setAttribute("loggedin", false);
-        request.getSession().setAttribute("notLoggedin", null);
-    %>
-    <jsp:include page="nonstdhead.jsp"/>
+
+    <%--<jsp:include page="nonstdhead.jsp"/>--%>
     <body>
-        <p>You have successfully logged out!</p>
+<!--        <p>You have successfully logged out!</p>-->
     </body>
 </html>

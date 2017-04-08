@@ -272,12 +272,29 @@
         <div id="editedOldPost">
             
             <div id="oldPost">
-                <div id="postAuthor">
-                    <label><%=name%></label> 
+                
+                <div id="detPostHeaderBar">
+                    <div id="postAuthor">
+                        <label><%=name%></label> 
+                    </div>
+                    <div id="postDate">
+                        <label><%=idea.getDate()%></label> 
+                    </div>
                 </div>
-                <div id="postDate">
-                    <label><%=idea.getDate()%></label> 
-                </div>
+                    
+                <img id="typeOfAccountPic"
+                    <%
+                        if (usQuery.isInv(idea.getAccountNumber())) {
+                   
+                            out.print("src=\"img/purple_investor_35x70.png\"/>"); 
+                   
+                        } else {
+                   
+                            out.print("src=\"img/purple_futurepreneur_40x70.png\"/>");              
+                        }
+                    %>
+                
+
                 <p>
                     <div id="postIdeaTitle"> 
                         <input type="text"
@@ -391,19 +408,32 @@
                     int counter = com.getSupports();
                     String comName = usQuery.getUserFullName(com.getAccountNumber());
                     out.println("<div id=\"userComment\">"
+                            + "<div id=\"detCommentHeaderBar\">"
                             + "<div id=\"commentAuthor\">"
                             + "<label>" + comName + "</label>"
                             + "</div>"
                             + "<div id=\"commentDate\">"
                             + "<label>" + com.getDate() + "</label>" 
                             + "</div>"
-                            + "<p>"
-                            + "<div id=\"commentContent\">"
-                            + "<textarea readonly=\"readonly\">"
-                            + com.getComment()
-                            + "</textarea>"
                             + "</div>"
-                            + "</p>");
+                            + "<img id=\"typeOfAccountPic\"");
+               
+                    if (usQuery.isInv(com.getAccountNumber())) {
+
+                        out.print("src=\"img/purple_investor_35x70.png\"/>"); 
+
+                    } else {
+
+                        out.print("src=\"img/purple_futurepreneur_40x70.png\"/>");              
+                    }
+                   
+                    out.print("<p>"
+                         + "<div id=\"commentContent\">"
+                         + "<textarea readonly=\"readonly\">"
+                         + com.getComment()
+                         + "</textarea>"
+                         + "</div>"
+                         + "</p>");
 
                     if (suppQ.notAlreadySupp((Integer) request.getSession().getAttribute("accountNumber"), com.getSupports())) {
                         out.print("<div id=\"commentSupports\">"
@@ -471,7 +501,7 @@
                 }
             %>
 
-            <form action="comment" onsubmit="disableBeforeUnload();" method="post">
+            <form action="comment" onsubmit="return checkIfBlank();" method="post">
                 <div id="newCommentContainer">
                     <textarea name="comment" 
                               id="commentTextArea" 
@@ -490,13 +520,22 @@
         </div>
                     
         <script>
-            $(document).ready(function() {
-
-                $('.lessIdeaLink').click(function() {
-                    return confirm('Return to ideas?');
-                });
-    
-            });
+//            $(document).ready(function() {
+//
+//                $('.lessIdeaLink').click(function() {
+//                    return confirm('Return to ideas?');
+//                });
+//    
+//            });
+            function checkIfBlank() {
+                if(document.getElementById("commentTextArea").value.toString().trim() === "") {
+                    alert("Comment can't be blank");
+                    return false;
+                }
+                
+                disableBeforeUnload();
+                return true;
+            }
             
             function enableBeforeUnload() {
                 window.onbeforeunload = function(e) {

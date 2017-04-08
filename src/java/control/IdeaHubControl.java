@@ -119,12 +119,12 @@ public class IdeaHubControl extends HttpServlet {
             throws ServletException, IOException { // DO ERROR CHECKINGGGG!!!!!!!!
         // TO SELECT a major query for the majors and put in drop down
         
-        System.out.println("Inside doPost");
+//        System.out.println("Inside doPost");
         
         String url = null;
         try {
             url = new URI(request.getHeader("referer")).getPath();
-            System.out.println("Start of new url: " + url);
+//            System.out.println("Start of new url: " + url);
         } catch (URISyntaxException ex) {
             Logger.getLogger(IdeaHubControl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -140,15 +140,15 @@ public class IdeaHubControl extends HttpServlet {
 //                System.out.println("Inside idea update!");
 //                doUpdateIdea(request, response);
             } else if (url.indexOf("idea") > 0) {
-                System.out.println("Inside indexOf(idea)");
+//                System.out.println("Inside indexOf(idea)");
                 
                 if (request.getParameter("updateIdeaNumber") != null) {
-                    System.out.println("Inside update idea...");
+//                    System.out.println("Inside update idea...");
                     doUpdateIdea(request, response);
                 } else if (request.getParameter("deleteIdeaNumber") != null) {
                     doDeleteIdea(request, response);
                 } else {
-                    System.out.println("Inside add idea...");
+//                    System.out.println("Inside add idea...");
                     doAddIdea(request, response);
                 }
                 
@@ -159,7 +159,7 @@ public class IdeaHubControl extends HttpServlet {
             } else if (url.indexOf("editInvestor") > 0) {
                 doUpdateInv(request, response);
             } else {
-                System.out.println("No URL matches");
+//                System.out.println("No URL matches");
             }
         } else {
             doAddMessage(request, response);
