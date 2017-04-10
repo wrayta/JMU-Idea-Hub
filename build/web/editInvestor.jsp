@@ -30,6 +30,39 @@ and open the template in the editor.
         <%
             Investor user = (Investor) userQ.getInv((Integer) (request.getSession().getAttribute("accountNumber")));
         %> 
+        
+        <script>
+            function checkExist(){
+                var xmlhttp = new XMLHttpRequest();
+                var username = encodeURIComponent(document.forms["editInvestor"]["investorUsername"].value);
+                var url = "username?editedUsername=" + username
+                        + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>;
+
+                xmlhttp.onreadystatechange = function(){
+                    if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        if(xmlhttp.responseText == "User already exists"
+                            || xmlhttp.responseText == "User name is invalid") {
+                            document.getElementById("investorEditedExist").style.color = "red";
+                            document.getElementById("investorUsernameInputEditId").className = "error";
+                        }
+                        else {
+                            document.getElementById("investorEditedExist").style.color = "green";
+                        }
+                        document.getElementById("investorEditedExist").innerHTML = xmlhttp.responseText;
+                        
+                    }
+
+                };
+
+                try{
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+                }catch(e) {
+                    alert("unable to connect to server");
+                }
+            }
+        </script>
+        
     </head>
     <body>
         <%
@@ -42,7 +75,7 @@ and open the template in the editor.
 
         <div id="investorFormWrapper">
 
-            <form method="post" action="idea" onsubmit="disableBeforeUnload();" id="investor-edit-form"> 
+            <form method="post" name="editInvestor" action="idea" onsubmit="disableBeforeUnload();" id="investor-edit-form"> 
 
                 <fieldset>
 
@@ -127,8 +160,11 @@ and open the template in the editor.
                                    data-validation-length="3-12" 
                                    data-validation-error-msg="User name has to be an alphanumeric value (3-12 chars)"
                                    name="investorUsername" 
+                                   id="investorUsernameInputEditId"
+                                   onblur="checkExist();"
                                    onchange="enableBeforeUnload();"
                                    onkeyup="enableBeforeUnload();"/>
+                                   <span id="investorEditedExist"></span>
                         </div>
                     </p>
 

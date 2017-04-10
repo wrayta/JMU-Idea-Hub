@@ -33,6 +33,39 @@
         <%
             Futurepreneur user = (Futurepreneur) userQ.getFut((Integer) (request.getSession().getAttribute("accountNumber")));
         %> 
+        
+        <script>
+            function checkExist(){
+                var xmlhttp = new XMLHttpRequest();
+                var username = encodeURIComponent(document.forms["editFuturepreneur"]["futurepreneurUsername"].value);
+                var url = "username?editedUsername=" + username
+                        + "&accountNumber=" + <%= request.getSession().getAttribute("accountNumber")%>;
+
+                xmlhttp.onreadystatechange = function(){
+                    if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        if(xmlhttp.responseText == "User already exists"
+                            || xmlhttp.responseText == "User name is invalid") {
+                            document.getElementById("futurepreneurEditedExist").style.color = "red";
+                            document.getElementById("futurepreneurUsernameInputEditId").className = "error";
+                        }
+                        else {
+                            document.getElementById("futurepreneurEditedExist").style.color = "green";
+                        }
+                        document.getElementById("futurepreneurEditedExist").innerHTML = xmlhttp.responseText;
+                        
+                    }
+
+                };
+
+                try{
+                    xmlhttp.open("GET", url, true);
+                    xmlhttp.send();
+                }catch(e) {
+                    alert("unable to connect to server");
+                }
+            }
+        </script>
+        
     </head>
     <body>
         <%
@@ -47,7 +80,7 @@
         
         <!--<div id="futurepreneurFormWrapper">-->
             
-            <form method="post" action="idea" onsubmit="disableBeforeUnload();" id="futurepreneur-edit-form">
+            <form method="post" name="editFuturepreneur" action="idea" onsubmit="disableBeforeUnload();" id="futurepreneur-edit-form">
 
                 <fieldset>      
 
@@ -216,8 +249,11 @@
                                    data-validation-length="3-12" 
                                    data-validation-error-msg="User name has to be an alphanumeric value (3-12 chars)"
                                    name="futurepreneurUsername"
+                                   id="futurepreneurUsernameInputEditId"
+                                   onblur="checkExist();"
                                    onchange="enableBeforeUnload();"
                                    onkeyup="enableBeforeUnload();"/>
+                                   <span id="futurepreneurEditedExist"></span>
                         </div>
                     </p>
 

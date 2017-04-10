@@ -37,3 +37,31 @@ span.help {
     font-size: 16px;
     color: #9370DB;
 }
+
+#futurepreneurExist {
+    display: inline-block;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 16px;
+    margin: 0 0 0 23px;
+}
+
+#investorExist {
+    display: inline-block;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 16px;
+    margin: 0 0 0 23px;
+}
+
+#futurepreneurEditedExist {
+    display: inline-block;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 16px;
+    margin: 0 0 0 23px;
+}
+
+#investorEditedExist {
+    display: inline-block;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 16px;
+    margin: 0 0 0 23px;
+}

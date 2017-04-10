@@ -58,11 +58,11 @@
                     <center>
                         
                         <div id="futurepreneurRegister">
-                            <a class="register-futurepreneur-link" href="futurepreneurSignUp.jsp"><input type="button" value="Register As&#13;&#10;Futurepreneur" id="futureRegisterButton"/></a>
+                            <a class="register-futurepreneur-link" href="futurepreneurSignUp.jsp" id="futureRegisterButton">Register As<br/>Futurepreneur</a>
                         </div>
 
                         <div id="investorRegister">
-                            <a class="register-investor-link" href="investorSignUp.jsp"><input type="button" value="Register As&#13;&#10;Investor" id="investorRegisterButton"/></a>
+                            <a class="register-investor-link" href="investorSignUp.jsp" id="investorRegisterButton">Register As<br/>Investor</a>
                         </div>
                         
                     </center>

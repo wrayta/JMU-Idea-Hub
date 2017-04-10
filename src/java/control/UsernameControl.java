@@ -71,6 +71,10 @@ public class UsernameControl extends HttpServlet {
             System.out.println("doGet check for username");
             doCheckUsername(request, response);
         }
+        else if (request.getParameter("editedUsername") != null) {
+            System.out.println("doGet check for editedUsername");
+            doCheckEditedUsername(request, response);
+        }
     }
 
     /**
@@ -100,6 +104,32 @@ public class UsernameControl extends HttpServlet {
             } else if(userQ.getUser(request.getParameter("username"))) {
                 out.print("User already exists");
             } else if(!userQ.getUser(request.getParameter("username"))) {
+                out.print("User name is valid");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UsernameControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    private void doCheckEditedUsername(HttpServletRequest request, HttpServletResponse response) {
+        ErrorChecker errorCheck = new ErrorChecker();
+        UserQuery userQ = new UserQuery();
+        
+        response.setContentType("text/text");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            
+            if(!errorCheck.validateUsername(request.getParameter("editedUsername")) ) {
+                out.print("User name is invalid");                
+            } 
+            else if(userQ.getUser((Integer) request.getSession().getAttribute("accountNumber")).equals(request.getParameter("editedUsername"))) {
+                out.print("User name is valid");
+            }            
+            else if(userQ.getUser(request.getParameter("editedUsername"))) {
+                out.print("User already exists");
+            } else if(!userQ.getUser(request.getParameter("editedUsername"))) {
                 out.print("User name is valid");
             }
         } catch (IOException ex) {
